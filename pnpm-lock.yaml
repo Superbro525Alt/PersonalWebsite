@@ -4,6 +4,14 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+dependencies:
+  '@popperjs/core':
+    specifier: ^2.11.8
+    version: 2.11.8
+  tailwind-merge:
+    specifier: ^1.14.0
+    version: 1.14.0
+
 devDependencies:
   '@fontsource/fira-mono':
     specifier: ^4.5.10
@@ -354,7 +362,6 @@ packages:
 
   /@popperjs/core@2.11.8:
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
-    dev: true
 
   /@sveltejs/adapter-auto@2.1.0(@sveltejs/kit@1.25.2):
     resolution: {integrity: sha512-o2pZCfATFtA/Gw/BB0Xm7k4EYaekXxaPGER3xGSY3FvzFJGTlJlZjBseaXwYSM94lZ0HniOjTokN3cWaLX6fow==}
@@ -1421,7 +1428,6 @@ packages:
 
   /tailwind-merge@1.14.0:
     resolution: {integrity: sha512-3mFKyCo/MBcgyOTlrY8T7odzZFx+w+qKSMAmdFzRvqBfLlSigU6TZnlFHK0lkMwj9Bj8OYU+9yW9lmGuS0QEnQ==}
-    dev: true
 
   /tailwindcss@3.3.3:
     resolution: {integrity: sha512-A0KgSkef7eE4Mf+nKJ83i75TMyq8HqY3qmFIJSWy8bNt0v1lG7jUcpGpoTFxAwYcWOphcTBLPPJg+bDfhDf52w==}
