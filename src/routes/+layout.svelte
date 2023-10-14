@@ -2,6 +2,8 @@
   import "../app.postcss";
   import Header from "./Header.svelte";
   import "./styles.css";
+    import { DarkMode } from 'flowbite-svelte';
+
 
   import { page } from '$app/stores';
   import { Navbar, NavBrand, NavLi, NavUl, NavHamburger } from 'flowbite-svelte';
@@ -10,18 +12,22 @@
 </script>
 
 <div class="app">
-  <Navbar>
+  <Navbar class="bg-gray-100">
   <NavBrand href="/">
     <span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white">paulsstuff.dev</span>
+
   </NavBrand>
   <NavHamburger />
   <NavUl {activeUrl}>
+
     <NavLi href="/">Home</NavLi>
     <NavLi href="/projects">Projects</NavLi>
     <NavLi href="/languages">Languages</NavLi>
     <NavLi href="/organisations">Organisations</NavLi>
     <NavLi href="/accounts">Accounts</NavLi>
   </NavUl>
+    <DarkMode class="self-center ml-2" />
+
 </Navbar>
   <main>
     <slot />
