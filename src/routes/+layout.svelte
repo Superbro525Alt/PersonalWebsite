@@ -4,15 +4,19 @@
   import "./styles.css";
     import { DarkMode } from 'flowbite-svelte';
 
+	import { fade } from 'svelte/transition';
 
   import { page } from '$app/stores';
   import { Navbar, NavBrand, NavLi, NavUl, NavHamburger } from 'flowbite-svelte';
+
+    import { Footer, FooterCopyright, FooterLinkGroup, FooterLink } from 'flowbite-svelte';
+
   $: activeUrl = $page.url.pathname;
 
 </script>
 
 <div class="app">
-  <Navbar class="bg-gray-100">
+  <Navbar class="bg-gray-100 transition_5">
   <NavBrand href="/">
     <span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white">paulsstuff.dev</span>
 
@@ -29,14 +33,19 @@
     <DarkMode class="self-center ml-2" />
 
 </Navbar>
-  <main>
+  <main transition:fade>
     <slot />
   </main>
 
-  <footer>
-    <p>
-    </p>
-  </footer>
+  <Footer class="transition_5">
+  <FooterCopyright href="/" by="Paul Hodges™" year={2023} />
+  <FooterLinkGroup ulClass="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
+    <FooterLink href="/">About</FooterLink>
+    <FooterLink href="/">Privacy Policy</FooterLink>
+    <FooterLink href="/">Licensing</FooterLink>
+    <FooterLink href="/">Contact</FooterLink>
+  </FooterLinkGroup>
+</Footer>
 </div>
 
 <style>
@@ -52,7 +61,7 @@
     flex-direction: column;
     padding: 1rem;
     width: 100%;
-    max-width: 64rem;
+    max-width: 80rem;
     margin: 0 auto;
     box-sizing: border-box;
   }
