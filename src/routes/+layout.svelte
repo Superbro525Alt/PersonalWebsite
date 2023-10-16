@@ -30,7 +30,7 @@
     <NavLi href="/organisations">Organisations</NavLi>
     <NavLi href="/accounts">Accounts</NavLi>
   </NavUl>
-    <DarkMode class="self-center ml-2" />
+    <DarkMode class="self-center ml-2 transition_5" />
 
 </Navbar>
   <main transition:fade>
