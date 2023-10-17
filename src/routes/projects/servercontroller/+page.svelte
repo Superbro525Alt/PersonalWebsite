@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-	<title>Organisations</title>
+	<title>Server Controller</title>
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
