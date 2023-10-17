@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-	<title>Organisations</title>
+	<title>Soccer Field Management</title>
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
