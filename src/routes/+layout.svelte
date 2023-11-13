@@ -1,6 +1,5 @@
 <script>
   import "../app.postcss";
-  import Header from "./Header.svelte";
   import "./styles.css";
     import { DarkMode } from 'flowbite-svelte';
 
@@ -10,12 +9,19 @@
   import { Navbar, NavBrand, NavLi, NavUl, NavHamburger } from 'flowbite-svelte';
 
     import { Footer, FooterCopyright, FooterLinkGroup, FooterLink } from 'flowbite-svelte';
+  import {onMount} from "svelte";
 
   $: activeUrl = $page.url.pathname;
+
+  onMount(() => {
+
+  });
 
 </script>
 
 <div class="app">
+  {#if activeUrl.split("/")[1] != 'apps'}
+
   <Navbar class="bg-gray-100 transition_5">
   <NavBrand href="/">
     <span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white">paulsstuff.dev</span>
@@ -33,9 +39,11 @@
     <DarkMode class="self-center ml-2 transition_5" />
 
 </Navbar>
+    {/if}
   <main transition:fade>
     <slot />
   </main>
+  {#if activeUrl.split("/")[1] != 'apps'}
 
   <Footer class="transition_5">
   <FooterCopyright href="/" by="Paul Hodges™" year={2023} />
@@ -46,6 +54,7 @@
     <FooterLink href="/">Contact</FooterLink>
   </FooterLinkGroup>
 </Footer>
+    {/if}
 </div>
 
 <style>
