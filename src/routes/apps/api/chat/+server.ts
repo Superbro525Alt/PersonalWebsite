@@ -26,7 +26,7 @@ let data: Data = {
                 "message": "Hello",
                 "sender": "w",
                 "time": 1631796580,
-                "read": true
+                "read": false
             },
             {
                 "avatar": "https://avatars.githubusercontent.com/u/10000000?s=60&v=4",
@@ -132,6 +132,16 @@ export async function POST({request}) {
             }
             throw new Error(`User ${reqData.user} not found. Current users: ${Object.keys(data)}`);
 
+        } else if (reqData.query == "avatar") {
+            if (Object.keys(data).includes(reqData.user)) {
+                return json({
+                    status: 200,
+                    body: {
+                        "avatar": data[reqData.user].avatar
+                    }
+                });
+            }
+            throw new Error(`User ${reqData.user} not found. Current users: ${Object.keys(data)}`);
         }
         throw new Error("Invalid query");
     } catch (e) {
