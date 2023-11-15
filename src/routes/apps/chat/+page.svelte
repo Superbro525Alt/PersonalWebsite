@@ -20,6 +20,7 @@
         let message_count = 0;
 
         let username = "test";
+        let user_avatar;
 
 let activeClass = 'flex items-center p-2 text-base font-normal text-primary-900 bg-primary-200 dark:bg-primary-700 rounded-lg dark:text-white hover:bg-primary-100 dark:hover:bg-gray-700';
   let nonActiveClass = 'flex items-center p-2 text-base font-normal text-green-900 rounded-lg dark:text-white hover:bg-green-100 dark:hover:bg-green-700';
@@ -48,6 +49,12 @@ let activeClass = 'flex items-center p-2 text-base font-normal text-primary-900 
             }
         });
 
+        async function get_avatar() {
+            await POST("api/chat", {query: "avatar", user: username}).then((value) => {
+                user_avatar = value.body.avatar;
+            });
+        }
+
         async function get_message_count() {
             await POST("api/chat", {query: "messages", user: username}).then((value) => {
                 let message_count_temp = value.body
@@ -69,9 +76,11 @@ let activeClass = 'flex items-center p-2 text-base font-normal text-primary-900 
 
         // on message count change
         await get_message_count();
+        await get_avatar();
 
         setInterval(async () => {
             await get_message_count();
+            await get_avatar();
         }, 1000);
 
     });
@@ -126,7 +135,7 @@ let activeClass = 'flex items-center p-2 text-base font-normal text-primary-900 
       </SidebarWrapper>
         <div class="flex flex-row p-3 bg-gray-50 rounded dark:bg-gray-800 h-[4rem] w-[calc(15vw)] space-x-3">
             <Avatar
-                alt="Avatar"
+                    src={user_avatar}
                 class="w-10 h-10 rounded-full margin-auto"
                 dot={{ placement: 'top-right', color: 'green' }} rounded/>
 

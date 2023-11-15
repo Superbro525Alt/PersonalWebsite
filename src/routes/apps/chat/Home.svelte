@@ -19,6 +19,10 @@
 
         setInterval(async () =>  {
             data = await POST("api/chat", {query: "all", user: user});
+            // sort data.body.messages by time so most recent is first
+            data.body.messages.sort((a, b) => {
+                return new Date(b.time).getTime() - new Date(a.time).getTime();
+            });
             console.log(data);
         }, 1000);
 
@@ -64,10 +68,10 @@
     {/if}
     {#if data.body.messages != []}
 
-    <div class="flex flex-row items-center justify-center space-x-3">
+    <div class="flex flex-row items-center justify-center space-x-3 overflow-scroll padding-left">
         {#each data.body.messages as message}
             {#if message.read == false}
-                <Card class="mb-3 w-full max-w-full">
+                <Card class="mb-3 w-full max-w-full min-w-[calc(20%)]">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12 flex flex-row">
@@ -107,3 +111,10 @@
         {/if}
     {/if}
 {/if}
+
+<style>
+    .padding-left {
+        padding-left: 2vw;
+        padding-right: 1vw;
+    }
+</style>
