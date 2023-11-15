@@ -9,3 +9,6 @@ build:
 setup:
 	chmod +x ./setup.sh
 	./setup.sh
+
+update:
+	pnpm install
