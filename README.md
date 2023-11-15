@@ -1,5 +1,23 @@
 # My Website
 
+## Features
+
+### Portfolio
+
+`paulsstuff.dev`
+
+### Apps
+
+#### Chat
+
+`paulsstuff.dev/apps/chat`
+
+**Will get faster updates at `development.paulsstuff.dev/apps/chat`**
+
+A chat app running off of a server.
+
+
+
 ## Usage
 
 Visit [paulsstuff.dev](https://www.paulsstuff.dev) for the master branch or [development.paulsstuff.dev](https://development.paulsstuff.dev) for the dev branch
