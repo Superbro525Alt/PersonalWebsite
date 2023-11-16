@@ -32,6 +32,7 @@
 
 </script>
 
+<div class="hide-scrollbar">
 <Heading tag="h2">Recent Messages</Heading>
 <br/>
 <!-- if data == undefined show loading... if data.messages == [] show no messages -->
@@ -111,10 +112,22 @@
         {/if}
     {/if}
 {/if}
+</div>
 
 <style>
     .padding-left {
         padding-left: 2vw;
         padding-right: 1vw;
     }
+
+    /* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
 </style>
