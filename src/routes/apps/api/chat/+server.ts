@@ -9,8 +9,10 @@ type Message = {
 }
 
 type User = {
+    avatar: string,
+    password: string,
+    key: string,
     [key: string]: Message[] | []
-    avatar: string
 }
 type UserData = {
     [key: string]: User
@@ -24,6 +26,8 @@ let data: Data = {
     "users": {
         "test": {
             "avatar": "https://avatars.githubusercontent.com/u/10000000?s=60&v=4",
+            "password": "test",
+            "key": "test",
             "messages": [
                 {
                     "avatar": "https://avatars.githubusercontent.com/u/10000000?s=60&v=4",
@@ -64,6 +68,8 @@ let data: Data = {
         },
         "w": {
             "avatar": "https://avatars.githubusercontent.com/u/10000000?s=60&v=4",
+            "password": "w",
+            "key": "w",
             "messages": [
                 {
                     "avatar": "https://avatars.githubusercontent.com/u/10000000?s=60&v=4",
@@ -87,9 +93,17 @@ export async function POST({request}) {
 
         if (reqData.query === "all") {
             if (Object.keys(data.users).includes(reqData.user)) {
+                let ret_data = {};
+
+                for (const _data of Object.keys(data.users[reqData.user])) {
+                    if (data !== reqData.user) {
+                        ret_data[_data] = data.users[reqData.user][_data];
+                    }
+                }
+                
                 return json({
                     status: 200,
-                    body: data.users[reqData.user]
+                    body: ret_data
                 });
             }
             throw new Error("User not found");
@@ -197,6 +211,68 @@ export async function POST({request}) {
                 });
             }
             throw new Error(`User ${reqData.user} not found. Current users: ${Object.keys(data.users)}`);
+        } else if (reqData.query == "register") {
+            if (Object.keys(data.users).includes(reqData.user)) {
+                throw new Error(`User ${reqData.user} already exists`);
+            }
+
+            let key = "";
+
+            // generate key
+            for (let i = 0; i < 10; i++) {
+                key += Math.floor(Math.random() * 10);
+            }
+
+            data.users[reqData.user] = {
+                "avatar": "https://avatars.githubusercontent.com/u/10000000?s=60&v=4",
+                "password": reqData.password,
+                "key": key,
+                "messages": []
+            }
+
+            return json({
+                status: 200,
+                body: {
+                    "ok": true
+                }
+            });
+        } else if (reqData.query == "login") {
+            if (!Object.keys(data.users).includes(reqData.user)) {
+                throw new Error(`User ${reqData.user} not found`);
+            }
+
+            if (data.users[reqData.user].password !== reqData.password) {
+                throw new Error(`Incorrect password: ${reqData.password} : ${JSON.stringify(data.users[reqData.user])}`);
+            }
+
+            return json({
+                status: 200,
+                body: {
+                    "ok": true,
+                    "key": data.users[reqData.user].key,
+                    "password": data.users[reqData.user].password
+                }
+            });
+        } else if (reqData.query == "validate_key") {
+            if (!Object.keys(data.users).includes(reqData.user)) {
+                throw new Error(`User ${reqData.user} not found`);
+            }
+
+            if (data.users[reqData.user].key !== reqData.key) {
+                return json({
+                    status: 200,
+                    body: {
+                        "ok": false
+                    }
+                });
+            }
+
+            return json({
+                status: 200,
+                body: {
+                    "ok": true
+                }
+            });
         }
         throw new Error("Invalid query");
     } catch (e) {

@@ -13,6 +13,10 @@
 
 
     onMount(async () => {
+        while (localStorage.getItem("valid") != "true") {
+            console.log(localStorage.getItem("valid"));
+            await new Promise(r => setTimeout(r, 1000));
+        }
         user = localStorage.getItem("user");
 
         data = await POST("api/chat", {query: "all", user: user});

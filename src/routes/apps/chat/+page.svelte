@@ -19,7 +19,8 @@
     let urlParams;
         let message_count = 0;
 
-        let username = "test";
+        let username;
+        let key;
         let user_avatar;
 
 let activeClass = 'flex items-center p-2 text-base font-normal text-primary-900 bg-primary-200 dark:bg-primary-700 rounded-lg dark:text-white hover:bg-primary-100 dark:hover:bg-gray-700';
@@ -27,8 +28,32 @@ let activeClass = 'flex items-center p-2 text-base font-normal text-primary-900 
 
     // get data from api
 
+    async function validate_key() {
+        await POST("api/chat", {query: "validate_key", user: username, key: key}).then((value) => {
+            console.log(value)
+            if (value.body.ok == false) {
+                return false;
+            }
+        });
+    }
+
     onMount(async () => {
-        localStorage.setItem("user", username);
+        localStorage.setItem("valid", false);
+        if (localStorage.getItem("key") == null || localStorage.getItem("user") == null || localStorage.getItem("key") == "" || localStorage.getItem("user") == "") {
+            window.location.href = "chat/login";
+        }
+        username = localStorage.getItem("user");
+        key = localStorage.getItem("key");
+
+
+        validate_key().then((value) => {
+            if (value == false) {
+                window.location.href = "chat/login";
+                return;
+            }
+        });
+
+        localStorage.setItem("valid", true);
 
         urlParams = new URLSearchParams(window.location.search);
         current_page = urlParams.get("page");
@@ -46,6 +71,13 @@ let activeClass = 'flex items-center p-2 text-base font-normal text-primary-900 
             if (current_page.includes("?")) {
                 // remove everything after the first ?
                 current_page = current_page.split("?")[0];
+            }
+
+            if (current_page == "logout") {
+                localStorage.setItem("valid", false);
+                localStorage.setItem("key", "");
+                localStorage.setItem("user", "");
+                window.location.href = "chat/login";
             }
         });
 

@@ -121,6 +121,21 @@
         width: 100%;
     }
 
+    /* Make scrollbar look good */
+    .messages-window::-webkit-scrollbar {
+        width: 0.5rem;
+    }
 
+    .messages-window::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    .messages-window::-webkit-scrollbar-thumb {
+        background: #888;
+    }
+
+    .messages-window::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
 
 </style>
